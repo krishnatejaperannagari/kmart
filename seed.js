@@ -1,6 +1,4 @@
-//////////////////////////////////////////////////////////////////
-////////////Seed script - this is where we clean / seed the database during development
-//////////////////////////////////////////////////////////////
+// Seed script - this is where we clean or seed the database during development
 
 var mongoose = require("mongoose");
 var User = require ("./models/user");
@@ -18,7 +16,6 @@ function cleanDB(config){
 }
     
 function cleanUsers (config){
-    // Remove all Users
     User.remove({}, function(err){
         if (err){
             console.log(err);
@@ -31,7 +28,6 @@ function cleanUsers (config){
 }
 
 function cleanProducts (config){
-    // Remove all Products
     Product.remove({}, function(err){
         if (err){
             console.log(err);
@@ -46,7 +42,7 @@ function cleanProducts (config){
 function seedDB(config){
 
 cleanDB(config);
-    // seed the database with 100 products using faker
+    // seed the database with products using faker
     for(var i = 0; i < config.quantity; i++){
         var productSeed = new Object();
         

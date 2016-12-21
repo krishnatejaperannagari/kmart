@@ -20,7 +20,7 @@ commerceApp.service('shareService',['$location', '$http', '$log', function($loca
     // shared functions
     
     // navigation functions
-     // navigate to profile page
+    // navigate to profile page
     this.toProfile = function(){
         $location.path('/profile');
     };
@@ -43,7 +43,7 @@ commerceApp.service('shareService',['$location', '$http', '$log', function($loca
         $location.path('/cart');
     };
     
-    //view our ecommerce homepage (in this case the default route)
+    // view our ecommerce homepage (in this case the default route)
     this.goShopping = function(){
         $location.path('/');
     };    
@@ -55,7 +55,7 @@ commerceApp.service('shareService',['$location', '$http', '$log', function($loca
         $location.path('/');
     };
     
-    //DEBUG
+    // DEBUG
     // call authentication debug route
     // this.secret = function(){
     //     $http({

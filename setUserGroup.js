@@ -11,7 +11,6 @@ var setUserGroup = function(userID, userGroup) {
     });
 };
 
-
 module.exports = setUserGroup;
     
 

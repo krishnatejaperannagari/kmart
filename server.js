@@ -1,4 +1,5 @@
 // install express & dependancies
+
 var ejs             = require('ejs'),
     faker           = require('faker'),
     express         = require('express'),
@@ -14,27 +15,28 @@ var ejs             = require('ejs'),
 
 
 
-//Development configuration
+// Development configuration
+
 var devMode = {
     // set true to enable dev functions
     active      : true,
     // set up properties of seedConfig
     seedConfig  : {
         // set true to run seed script on startup 
-        active  : false,
+        active  : true,
         // delete all users
         users   : false,
         // delete all products
-        products: false,
+        products: true,
         // how many products to seed
-        quantity: 100,
+        quantity: 10,
         // log events
         feedback: true
         
     },
     // set up properties of giveAdmin
     giveAdmin   : {
-        // use giveAdmin on startup?
+        // use giveAdmin on startup
        active   : true,
        // target user id
        id       : '5858ceba5b710b16344b3be2',
@@ -43,11 +45,10 @@ var devMode = {
     }
 };
 
-
 mongoose.connect('mongodb://localhost:27017/hyena');
-//////////////////////////////////////////////////////////////////
-////////////Initialize express
-//////////////////////////////////////////////////////////////
+
+// Initialize express
+
 var app = express();
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -58,6 +59,7 @@ app.use(bodyParser.urlencoded({
 app.use(methodOverride('_method'));
 
 // dev mode
+
 if (devMode.active === true){
     // check if we should seed the database
     if (devMode.seedConfig.active === true){
@@ -69,10 +71,7 @@ if (devMode.active === true){
     }
 }
 
-
-//////////////////////////////////////////////////////////////////
-////////////Passport configuration
-//////////////////////////////////////////////////////////////
+// Passport configuration
 
 app.use(require('express-session')({
     secret: 'RE@#12$%12FE',
@@ -91,11 +90,35 @@ app.use(function(req, res, next){
     next();
 });
 
+// Auth logic
 
+function isLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    } else {
+        var fillerObj = {
+            errorMessage : 'You\'re not logged in.',
+            notAuth : true
+        };
+    res.send(fillerObj);
+    }
+}
 
-//////////////////////////////////////////////////////////////////
-////////////Auth routes
-//////////////////////////////////////////////////////////////
+function isAdmin(req, res, next){
+        User.findById(req.user._id, function(err, user) {
+        if (err){
+            console.log('profile info route error : ' + err);
+        }else {
+            if (user.userGroup === 'admin' || user.userGroup === 'Admin'){
+                return next();
+            } else {
+                res.send ('You are not an admin. You are ' + user.userGroup);
+            }
+        }
+    });
+}
+
+//Auth routes
 
 // registration logic
 app.post('/register', function(req, res){
@@ -129,42 +152,9 @@ app.get('/logout', function(req, res) {
    res.redirect('/');
 });
 
+// Profile routes
 
-// Auth logic 
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    } else {
-        var fillerObj = {
-            errorMessage : 'You\'re not logged in friend.',
-            notAuth : true
-        };
-    res.send(fillerObj);
-    }
-
-}
-
-function isAdmin(req, res, next){
-        User.findById(req.user._id, function(err, user) {
-        if (err){
-            console.log('profile info route error : ' + err);
-        }else {
-            if (user.userGroup === 'admin'){
-                return next();
-            } else {
-                res.send ('not an admin');
-            }
-        }
-
-    }); 
-    
-}
-
-//////////////////////////////////////////////////////////////////
-////////////Profile routes
-//////////////////////////////////////////////////////////////
-
-//user profile get route
+// user profile
 app.get('/profile',isLoggedIn, function(req, res){
     User.findById(req.user._id, function(err, user) {
         if (err){
@@ -180,7 +170,6 @@ app.get('/profile',isLoggedIn, function(req, res){
 // user profile update route 
 app.put('/profile',isLoggedIn, function(req, res){
 
-    //-------------------------------------- MONGOOSE UPDATE USER
     //Update data of currently logged in user
     User.findByIdAndUpdate(req.user._id, {
         // SET UP userInfo OBJECT BASED ON REQUEST DATA
@@ -205,7 +194,6 @@ app.put('/profile',isLoggedIn, function(req, res){
         }
 
     }); 
-    //------------------------------------------- END MONGOOSE UPDATE USER
 
 });
 
@@ -219,24 +207,8 @@ app.delete('/profile', isLoggedIn, function(req, res){
        }
     });
 });
-//////////////////////////////////////////////////////////////////
-////////////Other routes
-//////////////////////////////////////////////////////////////
 
-//  '/' => render index view
-app.get('/', function(req, res){
-   res.sendfile('./public/app/index.htm'); // load the single view file (angular will handle the page changes on the front-end)
-});
-
-// debug user
-app.get('/user', function(req, res){
-    if (!req.user){
-        res.send();
-    } else {
-        res.send(req.user.username);  
-    }
-   
-});
+//Product routes
 
 // retrieve all products
 app.get('/products', function(req, res) {
@@ -251,39 +223,52 @@ app.get('/products', function(req, res) {
 });
 
 // alternative product details route -- handled by angular using /products
-// app.get('/details/:id', function(req, res) {
-//     Product.findById(req.params.id, function(err, theProduct) {
-//         if (err){
-//             console.log('product route error : ' + err);
-//         }else {
-//             res.send(theProduct); 
-//         }
+app.get('/details/:id', function(req, res) {
+    Product.findById(req.params.id, function(err, theProduct) {
+         if (err){
+             console.log('product route error : ' + err);
+         }else {
+             res.send(theProduct); 
+         }
 
-//     });
-// });
+     });
+});
+
+
+// Other routes
+
+//  '/' => render index view
+app.get('/', function(req, res){
+   // load the single view file (angular will handle the page changes on the front-end)
+   res.sendfile('./public/app/index.htm');
+});
+
+// debug user
+app.get('/user', function(req, res){
+    if (!req.user){
+        res.send();
+    } else {
+        res.send(req.user.username);
+    }
+});
 
 // AUTH TESTING
-// app.get('/secret',isLoggedIn, function(req, res){
-//     // use this route to debug auth 
-//   res.send('secret data');
-// });
+app.get('/secret',isLoggedIn, function(req, res){
+   // use this route to debug auth 
+   res.send('secret data');
+ });
 
-// app.get('/admintest', isLoggedIn, isAdmin, function(req, res){
-//     res.send('account passed admin auth test');
-// });
-
+ app.get('/admintest', isLoggedIn, isAdmin, function(req, res){
+     res.send('account passed admin auth test');
+ });
 
 // Catch all
 app.get('*', function(req, res){
    res.send('The path doesn\'t exist');
 });
 
-
-
-//////////////////////////////////////////////////////////////////
-//////////// Tell Express to listen for requests (start server)
-//////////////////////////////////////////////////////////////
+//Start server
 
 app.listen('7895', 'localhost', function(){
-    console.log('server has started');
+    console.log('server has started at 7895');
 }); 
