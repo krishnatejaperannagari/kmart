@@ -24,6 +24,10 @@ commerceApp.service('shareService',['$location', '$http', '$log', function($loca
     this.toProfile = function(){
         $location.path('/profile');
     };
+    //navigate to add product page
+    this.toAddProduct = function(){
+        $location.path('/add-product');
+    };
     // navigate to login page
     this.toLogin = function(){
         $location.path('/login');

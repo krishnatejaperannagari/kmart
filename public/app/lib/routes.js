@@ -1,7 +1,7 @@
 commerceApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     
     $routeProvider
-    
+
     .when('/', {
         templateUrl: 'app/pages/home.html',
         controller: 'mainController'
@@ -30,6 +30,10 @@ commerceApp.config(['$routeProvider', '$locationProvider', function ($routeProvi
     .when('/details/:id', {
         templateUrl : 'app/pages/details.html',
         controller: 'detailsController'
+    })
+	.when('/add-product', {
+        templateUrl: 'app/pages/add-product.html',
+        controller: 'mainController'
     })
     .when('/:all*', {
         templateUrl: 'app/pages/home.html',

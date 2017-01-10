@@ -7,6 +7,7 @@ commerceApp.controller('headerController', ['$scope', '$location','$http','$log'
   // save shareService to $scope
   $scope.shareService = shareService;
   $scope.toProfile = shareService.toProfile;
+  $scope.toAddProduct = shareService.toAddProduct;
   $scope.toLogin = shareService.toLogin;
   $scope.toRegister = shareService.toRegister;
   $scope.logout = shareService.logout;

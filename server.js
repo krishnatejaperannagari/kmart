@@ -118,6 +118,33 @@ function isAdmin(req, res, next){
     });
 }
 
+function randomColor(req, res, next){
+        switch((Math.random() * (10 - 0) + 0).toFixed(0)) {
+            case '0':
+                return '/img/placeholder-dgreen.png';
+            case '1':
+                return '/img/placeholder-blue.png';
+            case '2':
+                return '/img/placeholder-dred.png';
+            case '3':
+                return '/img/placeholder-green.png';
+            case '4':
+                return '/img/placeholder-orange.png';
+            case '5':
+                return '/img/placeholder-pink.png';
+            case '6':
+                return '/img/placeholder-purple.png';
+            case '7':
+                return '/img/placeholder-red.png';
+            case '8':
+                return '/img/placeholder-teal.png';
+            case '9':
+                return '/img/placeholder-yellow.png';
+            default:
+                return '/img/placeholder-dgreen.png' ;
+        }
+}
+
 //Auth routes
 
 // registration logic
@@ -234,6 +261,27 @@ app.get('/details/:id', function(req, res) {
      });
 });
 
+//Add Product
+app.post('/add-product', isLoggedIn, isAdmin, function(req, res){
+    var newProduct = new Product({
+        productName: req.body.productname,
+        color: req.body.color,
+        department: req.body.department,
+        price: req.body.price,
+        productAdjective: req.body.productadjectives,
+        productMaterial: req.body.productmaterial,
+        imageUrl: randomColor(),
+        productDescription: req.body.productdescription
+    });
+    Product.create(newProduct, function(err, product){
+        if(err){
+            console.log(err);
+            res.redirect('/#/add-product');
+        } else {
+            res.redirect('/');
+        }
+        });
+})
 
 // Other routes
 
