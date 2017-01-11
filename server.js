@@ -19,7 +19,7 @@ var ejs             = require('ejs'),
 
 var devMode = {
     // set true to enable dev functions
-    active      : true,
+    active      : false,
     // set up properties of seedConfig
     seedConfig  : {
         // set true to run seed script on startup 
@@ -27,7 +27,7 @@ var devMode = {
         // delete all users
         users   : false,
         // delete all products
-        products: true,
+        products: false,
         // how many products to seed
         quantity: 50,
         // log events
@@ -37,7 +37,7 @@ var devMode = {
     // set up properties of giveAdmin
     giveAdmin   : {
         // use giveAdmin on startup
-       active   : true,
+       active   : false,
        // target user id
        id       : '5858ceba5b710b16344b3be2',
        // desired group name - standard: Admin
@@ -235,7 +235,7 @@ app.get('/details/:id', function(req, res) {
 });
 
 //Add Product
-app.post('/add-product', isLoggedIn, isAdmin, function(req, res){
+app.post('/add-product', isLoggedIn, function(req, res){
     var newProduct = new Product({
         productName: req.body.productname,
         color: req.body.color,
