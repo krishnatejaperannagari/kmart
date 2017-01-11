@@ -52,7 +52,7 @@
         <row class="row-eq-height">
         <div ng-repeat="product in products | filter: filterFunction" class=" col-sm-4 col-md-3">
           <div class="thumbnail">
-            <img src="{{ product.imageUrl }}" ng-click="details(product);" class="angular-link"></img>
+            <img src="{{ product.thumbnailUrl }}" ng-click="details(product);" class="angular-link"></img>
             <div class="caption tiles">
               <h4 class="angular-link oneliner" ng-click="details(product);">{{ product.productName }}</h4>
               

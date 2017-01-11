@@ -8,6 +8,7 @@ var ProductSchema = new mongoose.Schema({
     productAdjective: String,
     productMaterial: String,
     imageUrl: String,
+    thumbnailUrl: String,
     productDescription: String
 })
 

@@ -53,43 +53,43 @@ cleanDB(config);
         productSeed.productMaterial = faker.commerce.productMaterial();
         productSeed.productDescription = faker.lorem.paragraph();
         productSeed.productName = productSeed.productAdjective + ' ' + productSeed.productMaterial + ' ' + faker.commerce.product();
+        productSeed.imageUrl = '/img/details/placeholder.png';
         var photoroll =  (Math.random() * (10 - 0) + 0).toFixed(0);
         switch(photoroll) {
             case '0':
-                productSeed.imageUrl = '/img/placeholder-dgreen.png';
+                productSeed.thumbnailUrl = '/img/home/placeholder-dgreen.png';
                 break;
             case '1':
-                productSeed.imageUrl = '/img/placeholder-blue.png';
+                productSeed.thumbnailUrl = '/img/home/placeholder-blue.png';
                 break;
             case '2':
-                productSeed.imageUrl = '/img/placeholder-dred.png';
+                productSeed.thumbnailUrl = '/img/home/placeholder-dred.png';
                 break;
             case '3':
-                productSeed.imageUrl = '/img/placeholder-green.png';
+                productSeed.thumbnailUrl = '/img/home/placeholder-green.png';
                 break;
             case '4':
-                productSeed.imageUrl = '/img/placeholder-orange.png';
+                productSeed.thumbnailUrl = '/img/home/placeholder-orange.png';
                 break;
             case '5':
-                productSeed.imageUrl = '/img/placeholder-pink.png';
+                productSeed.thumbnailUrl = '/img/home/placeholder-pink.png';
                 break;
             case '6':
-                productSeed.imageUrl = '/img/placeholder-purple.png';
+                productSeed.thumbnailUrl = '/img/home/placeholder-purple.png';
                 break;
             case '7':
-                productSeed.imageUrl = '/img/placeholder-red.png';
+                productSeed.thumbnailUrl = '/img/home/placeholder-red.png';
                 break;
             case '8':
-                productSeed.imageUrl = '/img/placeholder-teal.png';
+                productSeed.thumbnailUrl = '/img/home/placeholder-teal.png';
                 break;
             case '9':
-                productSeed.imageUrl = '/img/placeholder-yellow.png';
+                productSeed.thumbnailUrl = '/img/home/placeholder-yellow.png';
                 break;
             default:
-                productSeed.imageUrl = '/img/placeholder-dgreen.png' ;
+                productSeed.thumbnailUrl = '/img/home/placeholder-dgreen.png' ;
                 break;
         }
-        
         Product.create(productSeed, function(err, product){
             if(err){
                 console.log(err);
