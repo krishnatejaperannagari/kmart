@@ -57,7 +57,7 @@
               <h4 class="angular-link oneliner" ng-click="details(product);">{{ product.productName }}</h4>
               
 
-              <span><h4 style="float : right">${{ product.price }}</h4> <ngcart-addtocart id="{{ product._id }}" name="{{ product.productName }}" price="{{product.price}}" quantity="1" quantity-max="30" data="product" >Add to cart</ngcart-addtocart></span>
+              <span><h4 style="float : right">₹{{ product.price }}</h4> <ngcart-addtocart id="{{ product._id }}" name="{{ product.productName }}" price="{{product.price}}" quantity="1" quantity-max="30" data="product" >Add to cart</ngcart-addtocart></span>
             </div>
           </div>
         </div>

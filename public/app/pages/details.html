@@ -18,30 +18,30 @@
                   
                   <table class="table table-striped">
                     <tr>
-                      <td style="text-align: right"> name : </td>
+                      <td style="text-align: right"> Name : </td>
                       <td style="text-align: left">{{ thisProduct.productName }}</td>
                     </tr>
                     <tr>
-                      <td style="text-align: right"> color : </td>
+                      <td style="text-align: right"> Color : </td>
                       <td style="text-align: left">{{ thisProduct.color }}</td>
                     </tr>
                     <tr>
-                      <td style="text-align: right">material : </td>
+                      <td style="text-align: right">Material : </td>
                       <td style="text-align: left">{{ thisProduct.productMaterial }}</td>
                     </tr>
                     <tr>
-                      <td style="text-align: right">department : </td>
+                      <td style="text-align: right">Category : </td>
                       <td style="text-align: left">{{ thisProduct.department }}</td>
                     </tr>
                     <tr>
-                      <td style="text-align: right"> classification : </td>
+                      <td style="text-align: right">Sub-Category : </td>
                       <td style="text-align: left"> {{thisProduct.productAdjective}} </td>
                     </tr>
                     
                   </table>
                   
                   <div style="float: left"><button ng-click="goShopping()" class="btn btn-default">Back to shopping</button></div>
-                  <span style="float: right"><h4>${{ thisProduct.price }}</h4> <ngcart-addtocart id="{{ thisProduct._id }}" name="{{ thisProduct.productName }}" price="{{thisProduct.price}}" quantity="1" quantity-max="30" data="thisProduct" >Add to cart</ngcart-addtocart></span>
+                  <span style="float: right"><h4>₹{{ thisProduct.price }}</h4> <ngcart-addtocart id="{{ thisProduct._id }}" name="{{ thisProduct.productName }}" price="{{thisProduct.price}}" quantity="1" quantity-max="30" data="thisProduct" >Add to cart</ngcart-addtocart></span>
                 </div>
                 
               </row>

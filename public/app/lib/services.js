@@ -58,19 +58,4 @@ commerceApp.service('shareService',['$location', '$http', '$log', function($loca
         $http.get('/logout');
         $location.path('/');
     };
-    
-    // DEBUG
-    // call authentication debug route
-    // this.secret = function(){
-    //     $http({
-    //       method: 'GET',
-    //       url: '/secret'
-    //     }).then(function successCallback(response) {
-    //         $log.info(response.data);
-    //       }, function errorCallback(response) {
-    //         $log.error(response);
-    //       });
-    // };
-
-    
 }]);

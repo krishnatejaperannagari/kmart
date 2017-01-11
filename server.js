@@ -29,7 +29,7 @@ var devMode = {
         // delete all products
         products: true,
         // how many products to seed
-        quantity: 10,
+        quantity: 50,
         // log events
         feedback: true
         
