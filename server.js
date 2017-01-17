@@ -45,7 +45,8 @@ var devMode = {
     }
 };
 
-mongoose.connect('mongodb://localhost:27017/hyena');
+mongoose.connect('mongodb://wptkz6kq:wptkz6kq@ds111479.mlab.com:11479/heroku_wptkz6kq');
+
 
 // Initialize express
 
