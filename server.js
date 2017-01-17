@@ -45,7 +45,7 @@ var devMode = {
     }
 };
 
-mongoose.connect('mongodb://localhost:27017/hyena');
+mongoose.connect('mongodb://wptkz6kq:wptkz6kq@ds111479.mlab.com:11479/heroku_wptkz6kq');
 
 // Initialize express
 
@@ -291,6 +291,6 @@ app.get('*', function(req, res){
 
 //Start server
 
-app.listen('7895', 'localhost', function(){
-    console.log('server has started at 7895');
+app.listen('8080', 'localhost', function(){
+    console.log('server has started at 8080');
 }); 
